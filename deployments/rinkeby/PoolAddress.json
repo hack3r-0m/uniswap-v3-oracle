@@ -1,0 +1,40 @@
+{
+  "address": "0x0991dce4cfAE30a009975691e6B93FF60df3758a",
+  "abi": [],
+  "transactionHash": "0xa35cfac550df9ccae90cec8b92043f12c0e71fcbc3f8342aa53ac9a6155481d5",
+  "receipt": {
+    "to": null,
+    "from": "0x64bdCD3513388D93431F7D4ff429553bb173D0b2",
+    "contractAddress": "0x0991dce4cfAE30a009975691e6B93FF60df3758a",
+    "transactionIndex": 30,
+    "gasUsed": "71933",
+    "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+    "blockHash": "0x7a8e6b812743516ebb0fcbc908de266907b2fca5d84579178939ca5841ec8616",
+    "transactionHash": "0xa35cfac550df9ccae90cec8b92043f12c0e71fcbc3f8342aa53ac9a6155481d5",
+    "logs": [],
+    "blockNumber": 9212678,
+    "cumulativeGasUsed": "5249625",
+    "status": 1,
+    "byzantium": true
+  },
+  "args": [],
+  "solcInputHash": "2eb8d9afcfe68634a8bcfb0a5479811d",
+  "metadata": "{\"compiler\":{\"version\":\"0.7.6+commit.7338295f\"},\"language\":\"Solidity\",\"output\":{\"abi\":[],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"title\":\"Provides functions for deriving a pool address from the factory, tokens, and the fee\",\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"contracts/libraries/PoolAddress.sol\":\"PoolAddress\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\",\"useLiteralContent\":true},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"contracts/libraries/PoolAddress.sol\":{\"content\":\"// SPDX-License-Identifier: GPL-2.0-or-later\\npragma solidity 0.7.6;\\n\\n/**\\n * @title Provides functions for deriving a pool address from the factory, tokens, and the fee\\n */\\n\\nlibrary PoolAddress {\\n    bytes32 internal constant POOL_INIT_CODE_HASH =\\n        0xe34f199b19b2b4f47f68442619d555527d244f78a3297ea89325f843f87b8b54;\\n\\n    /// @notice The identifying key of the pool\\n    struct PoolKey {\\n        address token0;\\n        address token1;\\n        uint24 fee;\\n    }\\n\\n    /// @notice Returns PoolKey: the ordered tokens with the matched fee levels\\n    /// @param tokenA The first token of a pool, unsorted\\n    /// @param tokenB The second token of a pool, unsorted\\n    /// @param fee The fee level of the pool\\n    /// @return Poolkey The pool details with ordered token0 and token1 assignments\\n    function getPoolKey(\\n        address tokenA,\\n        address tokenB,\\n        uint24 fee\\n    ) internal pure returns (PoolKey memory) {\\n        if (tokenA > tokenB) (tokenA, tokenB) = (tokenB, tokenA);\\n        return PoolKey({token0: tokenA, token1: tokenB, fee: fee});\\n    }\\n\\n    /// @notice Deterministically computes the pool address given the factory and PoolKey\\n    /// @param factory The Uniswap V3 factory contract address\\n    /// @param key The PoolKey\\n    /// @return pool The contract address of the V3 pool\\n    function computeAddress(address factory, PoolKey memory key)\\n        internal\\n        pure\\n        returns (address pool)\\n    {\\n        require(key.token0 < key.token1);\\n        pool = address(\\n            uint160(\\n                uint256(\\n                    keccak256(\\n                        abi.encodePacked(\\n                            bytes1(0xff),\\n                            factory,\\n                            keccak256(\\n                                abi.encode(key.token0, key.token1, key.fee)\\n                            ),\\n                            POOL_INIT_CODE_HASH\\n                        )\\n                    )\\n                )\\n            )\\n        );\\n    }\\n}\\n\",\"keccak256\":\"0x92b1f824c5588b25b3ed04a0fcb5592e43416ed343715d10e3e2baaaba5ef477\",\"license\":\"GPL-2.0-or-later\"}},\"version\":1}",
+  "bytecode": "0x60566023600b82828239805160001a607314601657fe5b30600052607381538281f3fe73000000000000000000000000000000000000000030146080604052600080fdfea264697066735822122046b386a710f64e4be3d81fcd5e20e459c8b09fa8a1d43f153484152016f53db264736f6c63430007060033",
+  "deployedBytecode": "0x73000000000000000000000000000000000000000030146080604052600080fdfea264697066735822122046b386a710f64e4be3d81fcd5e20e459c8b09fa8a1d43f153484152016f53db264736f6c63430007060033",
+  "devdoc": {
+    "kind": "dev",
+    "methods": {},
+    "title": "Provides functions for deriving a pool address from the factory, tokens, and the fee",
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {},
+    "version": 1
+  },
+  "storageLayout": {
+    "storage": [],
+    "types": null
+  }
+}

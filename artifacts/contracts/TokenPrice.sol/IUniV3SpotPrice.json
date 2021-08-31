@@ -1,0 +1,50 @@
+{
+  "_format": "hh-sol-artifact-1",
+  "contractName": "IUniV3SpotPrice",
+  "sourceName": "contracts/TokenPrice.sol",
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "pool",
+          "type": "address"
+        },
+        {
+          "internalType": "uint32",
+          "name": "period",
+          "type": "uint32"
+        },
+        {
+          "internalType": "uint128",
+          "name": "baseAmount",
+          "type": "uint128"
+        },
+        {
+          "internalType": "address",
+          "name": "baseToken",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "quoteToken",
+          "type": "address"
+        }
+      ],
+      "name": "getSpotPrice",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "quoteAmount",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "bytecode": "0x",
+  "deployedBytecode": "0x",
+  "linkReferences": {},
+  "deployedLinkReferences": {}
+}

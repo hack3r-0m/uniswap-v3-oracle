@@ -1,0 +1,21 @@
+{
+  "name": "uniswap-v3-oracle",
+  "version": "1.0.0",
+  "description": "Get prices of token using on-chain uniswap v3 oracle",
+  "main": "index.js",
+  "repository": "https://github.com/hack3r-0m/uniswap-v3-oracle",
+  "author": "hack3r-0m",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "@nomiclabs/hardhat-ethers": "^2.0.2",
+    "@nomiclabs/hardhat-etherscan": "^2.1.6",
+    "@uniswap/v3-core": "^1.0.0",
+    "dotenv": "^10.0.0",
+    "ethers": "^5.4.6",
+    "hardhat-deploy": "^0.9.0"
+  },
+  "devDependencies": {
+    "hardhat": "^2.6.1"
+  }
+}
