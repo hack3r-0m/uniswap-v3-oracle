@@ -2,6 +2,8 @@
 pragma solidity 0.7.6;
 
 import {IUniV3SpotPrice} from './TokenPrice.sol';
+import {IERC20} from './interfaces/IERC20.sol';
+
 import {PoolAddress} from './libraries/PoolAddress.sol';
 
 contract MockUniV3SpotPrice {
@@ -28,6 +30,7 @@ contract MockUniV3SpotPrice {
         address determinedAddress = PoolAddress.computeAddress(FACTORY, poolkey);
         address determinedAddressReversed = PoolAddress.computeAddress(FACTORY, poolkey);
 
+        require(determinedAddress != address(0), "Should not happen");
         require(determinedAddress == determinedAddressReversed, "Should never mismatch");
         require(determinedAddress == POOL, "Should never mismatch");
 
@@ -36,5 +39,18 @@ contract MockUniV3SpotPrice {
 
     function get1EthPriceInTermsOfDai() view external returns (uint256) {
         return IUniV3SpotPrice(tokenPrice).getSpotPrice(POOL, PERIOD, 10**18, DAI, WETH);
+    }
+
+    function get1TokenAPriceInTermsOfTokenB(address tokenA, address tokenB) view external returns (uint256) {
+        uint8 decimals = IERC20(tokenB).decimals();
+
+        PoolAddress.PoolKey memory poolkey = PoolAddress.getPoolKey(tokenA, tokenB, FEE);
+        
+        address poolAddress = PoolAddress.computeAddress(FACTORY, poolkey);
+        require(poolAddress != address(0), "Pool doesn't exist for given pair");
+
+        return IUniV3SpotPrice(tokenPrice).getSpotPrice(poolAddress, PERIOD, uint128(10**decimals), tokenB, tokenA);
+
+
     }
 }
